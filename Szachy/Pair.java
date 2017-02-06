@@ -1,4 +1,4 @@
-package chess;
+package Szachy;
 
 public class Pair <F,S>{
     private F first;
