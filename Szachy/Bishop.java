@@ -1,7 +1,6 @@
 package Szachy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Bishop extends Piece {
 
@@ -23,6 +22,23 @@ public class Bishop extends Piece {
 		value = 5;
 	}
 
+	@Override
+	protected boolean isLegal(Move move)
+	{
+		if(!super.isLegal(move))
+			return false;
+		
+		//checking if no border was crossed.
+		int pos = getPosition();
+		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) 
+				!= Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE) )
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
 	@Override
 	protected List<Move> getMoves() 
 	{

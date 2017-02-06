@@ -28,6 +28,26 @@ public class Queen extends Piece {
 	}
 
 	@Override
+	protected boolean isLegal(Move move)
+	{
+		if(!super.isLegal(move))
+			return false;
+		
+		//checking if no border was crossed.
+		int pos = getPosition();
+		if ( (Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) 
+				!= Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE)) 
+				&& 
+				( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 1 
+						&& Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE) >= 1) )
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	protected List<Move> getMoves() 
 	{
 		List <Move> out = new ArrayList <Move>();

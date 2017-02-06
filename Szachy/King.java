@@ -26,6 +26,23 @@ public class King extends Piece
 		
 		value = 100;
 	}
+	
+	@Override
+	protected boolean isLegal(Move move)
+	{
+		if(!super.isLegal(move))
+			return false;
+		
+		//checking if no border was crossed.
+		int pos = getPosition();
+		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 2 
+				|| Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE ) >= 2 )
+		{
+			return false;
+		}
+		
+		return true;
+	}
 
 	@Override
 	protected List<Move> getMoves() 

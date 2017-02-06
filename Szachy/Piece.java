@@ -54,14 +54,6 @@ public abstract class Piece {
 				return false;
 		}
 		
-		//checking if no border was crossed. //But it sucks currently. Does work only for knight and pawn probably.
-		int pos = getPosition();
-		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 3 
-				&& Math.abs(pos - move.where) >= 3 * Chessboard.SIZE )
-		{
-			return false;
-		}
-		
 		return true;
 	}
 	

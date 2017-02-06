@@ -42,5 +42,21 @@ public class Knight extends Piece {
 		return out;
 	}
 	
+	@Override
+	protected boolean isLegal(Move move)
+	{
+		if(!super.isLegal(move))
+			return false;
+		
+		//checking if no border was crossed.
+		int pos = getPosition();
+		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 3 
+				|| Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE ) >= 3 )
+		{
+			return false;
+		}
+		
+		return true;
+	}
 
 }

@@ -195,8 +195,7 @@ public class Chessboard {
 //---------------------------------------------------------------------	
 	public static void main(String[] args) 
 	{
-		Chessboard game = new Chessboard(); 
-		game.play(70);
+
 	}
 
 }
