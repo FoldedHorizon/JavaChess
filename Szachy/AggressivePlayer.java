@@ -29,7 +29,7 @@ public class AggressivePlayer extends Player {
 	private void filterForCaptures(List <Move> moves)
 	{
 		List <Move> safeCopy = new ArrayList <Move>();
-		Collections.copy(safeCopy, moves);
+		safeCopy.addAll(moves);
 
 		//removing non-aggressive moves
 		for(int i = 0; i < moves.size(); i++)
@@ -40,7 +40,8 @@ public class AggressivePlayer extends Player {
 		
 		//in case there is no moves that capture any piece
 		if(moves.size() == 0)
-			Collections.copy(moves, safeCopy);
+			moves.addAll(safeCopy);	
+	
 	}
 
 }

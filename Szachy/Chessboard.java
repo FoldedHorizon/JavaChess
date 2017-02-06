@@ -187,7 +187,7 @@ public class Chessboard {
 		board = new Piece [64];
 		
 		//Here you can choose which kind of players you want to spawn. Currently only Random works. Work in Progress on agressive, mini-max and Human ones.
-		white = new RandomPlayer(this, spawnWhiteSet(), "Alan");
+		white = new AggressivePlayer(this, spawnWhiteSet(), "Alan");
 		black = new RandomPlayer(this, spawnBlackSet(), "Marlena");
 		
 	}
