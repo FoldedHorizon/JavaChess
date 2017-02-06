@@ -14,14 +14,14 @@ public class RandomPlayer extends Player {
 	@Override
 	protected float evaluate(Move move)
 	{
-		//This function shall never be used by this player!
+		//This function shall never be used by this player! He is not smart enough to evaluate any moves.
 		assert false;
 
 		return -1;
 	}
 
 	@Override
-	protected Move chooseMove(List<Move> moves)
+	protected Move chooseMove(List <Move> moves)
 	{	
 		return moves.get(r.nextInt(moves.size()));
 	}

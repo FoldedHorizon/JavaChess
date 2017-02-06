@@ -5,8 +5,7 @@ import java.util.*;
 public abstract class Player {
 
 	private List <Piece> myPieces;
-	@SuppressWarnings("unused")
-	private Chessboard board;
+	protected Chessboard board;
 	private String name;
 	
 	
