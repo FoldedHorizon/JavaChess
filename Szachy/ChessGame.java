@@ -34,6 +34,13 @@ public class ChessGame {
 		return black;
 	}
 
+	public boolean isWhite(Player player)
+	{
+		if(player == white)
+			return true;
+		return false;
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -113,8 +120,11 @@ public class ChessGame {
 		chessboard = new Chessboard();
 		//Here you can choose which kind of players you want to spawn. Currently only Random and Aggressive works. Work in Progress on mini-max and Human ones.
 		white = new AggressivePlayer(this, chessboard.spawnWhiteSet(this), "Alan");
-		black = new HumanPlayer(this, chessboard.spawnBlackSet(this));
 
+		
+		//You can play by yourself ;)
+		//black = new HumanPlayer(this, chessboard.spawnBlackSet(this));
+		black = new RandomPlayer(this,chessboard.spawnBlackSet(this),"Random");
 		
 	}
 	

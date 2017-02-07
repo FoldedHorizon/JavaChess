@@ -2,8 +2,8 @@ package Szachy;
 
 import java.util.*;
 
-public class AggressivePlayer extends Player {
-
+public class AggressivePlayer extends Player 
+{
 	Random r = new Random();
 	
 	public AggressivePlayer(ChessGame game, List<Piece> pieces, String name) 
@@ -28,7 +28,10 @@ public class AggressivePlayer extends Player {
 		for(int i = 0; i < moves.size(); i++)
 		{
 			if(game.getChessboard().getPiece(moves.get(i).where) == null)
+			{
 				moves.remove(i);
+				i--;
+			}
 		}
 		
 		//in case there is no moves that capture any piece

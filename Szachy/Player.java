@@ -10,7 +10,7 @@ public abstract class Player {
 	
 	
 	protected abstract Move chooseMove(List <Move> moves);
-
+	
 	public String getName()
 	{
 		return new String(name);

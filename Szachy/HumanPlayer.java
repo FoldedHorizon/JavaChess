@@ -5,21 +5,19 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 
+	Scanner reader;
+	
 	public HumanPlayer(ChessGame game, List<Piece> pieces) {
 		super(game, pieces, "");
-		Scanner reader = new Scanner(System.in);
+		reader = new Scanner(System.in);
 		System.out.println("Enter your name: ");
-		name = reader.next();
-		reader.close();
-		
+		name = reader.next();		
 		
 	}
 
 	private int getPlayerInput()
 	{
-		Scanner reader = new Scanner(System.in);
 		String s = reader.next();
-		reader.close();
 		try
 		{
 			char column = s.charAt(0);
@@ -36,9 +34,11 @@ public class HumanPlayer extends Player {
 	
 	private Move getUserDefinedMove()
 	{
-		Piece who = null;
-		while(who == null)
+		System.out.println("I want to move a piece from: ");
+		Piece who = game.getChessboard().getPiece(getPlayerInput());
+		while( who == null || (who.isWhite() != game.isWhite(this)) )
 		{
+			System.out.println("There is no piece of your color on this field!");
 			System.out.println("I want to move a piece from: ");
 			who = game.getChessboard().getPiece(getPlayerInput());
 		}
