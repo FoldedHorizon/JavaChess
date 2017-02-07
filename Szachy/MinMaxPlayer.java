@@ -4,8 +4,8 @@ import java.util.List;
 
 public class MinMaxPlayer extends Player {
 
-	public MinMaxPlayer(ChessGame b, List<Piece> p, String name) {
-		super(b, p, name);
+	public MinMaxPlayer(String name) {
+		super(name);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -38,11 +38,16 @@ public abstract class Player {
 		return chooseMove(all);
 	}
 	
-	protected Player(ChessGame game, List <Piece> pieces, String name)
+	protected Player(String name)
+	{
+
+		this.name = name;
+	}
+	
+	protected void init(ChessGame game, List <Piece> pieces)
 	{
 		this.game = game;
 		myPieces = new ArrayList <Piece>();
 		myPieces.addAll(pieces);
-		this.name = name;
 	}
 }

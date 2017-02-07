@@ -7,12 +7,19 @@ public class HumanPlayer extends Player {
 
 	Scanner reader;
 	
-	public HumanPlayer(ChessGame game, List<Piece> pieces) {
-		super(game, pieces, "");
+	public HumanPlayer() {
+		super("Ola");
 		reader = new Scanner(System.in);
 		System.out.println("Enter your name: ");
-		name = reader.next();		
-		
+		try
+		{
+			name = reader.next();		
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			System.out.println("Your name is Ola, then.");
+		}
 	}
 
 	private int getPlayerInput()

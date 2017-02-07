@@ -6,11 +6,11 @@ public class AggressivePlayer extends Player
 {
 	Random r = new Random();
 	
-	public AggressivePlayer(ChessGame game, List<Piece> pieces, String name) 
+	public AggressivePlayer(String name) 
 	{
-		super(game, pieces, name);
+		super(name);
 	}
-
+	
 	@Override
 	protected Move chooseMove(List <Move> moves) 
 	{

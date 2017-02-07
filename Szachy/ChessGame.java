@@ -114,17 +114,13 @@ public class ChessGame {
 		chessboard.execute(move);
 	}
 	
-	public ChessGame()
+	public ChessGame(Player whitePlayer, Player blackPlayer)
 	{
-		
 		chessboard = new Chessboard();
-		//Here you can choose which kind of players you want to spawn. Currently only Random and Aggressive works. Work in Progress on mini-max and Human ones.
-		white = new AggressivePlayer(this, chessboard.spawnWhiteSet(this), "Alan");
-
-		
-		//You can play by yourself ;)
-		//black = new HumanPlayer(this, chessboard.spawnBlackSet(this));
-		black = new RandomPlayer(this,chessboard.spawnBlackSet(this),"Random");
+		white = whitePlayer;
+		black = blackPlayer;
+		white.init(this, chessboard.spawnWhiteSet(this));
+		black.init(this, chessboard.spawnBlackSet(this));
 		
 	}
 	

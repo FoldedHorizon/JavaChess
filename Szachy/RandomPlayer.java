@@ -6,9 +6,9 @@ public class RandomPlayer extends Player {
 	
 	Random r = new Random();
 	
-	public RandomPlayer(ChessGame b, List<Piece> p, String name) 
+	public RandomPlayer(String name) 
 	{
-		super(b, p, name);
+		super(name);
 	}
 
 	
