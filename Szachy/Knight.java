@@ -5,16 +5,16 @@ import java.util.*;
 public class Knight extends Piece {
 
 	protected static int translations [] = 
-		{ -(2 * Chessboard.SIZE) + 1, 
-		-Chessboard.SIZE + 2, 
-		Chessboard.SIZE + 2, 
-		2 * Chessboard.SIZE + 1, 
-		2 * Chessboard.SIZE - 1, 
-		Chessboard.SIZE - 2, 
-		-Chessboard.SIZE - 2, 
-		-(2 * Chessboard.SIZE) - 1 };
+		{ -(2 * ChessGame.SIZE) + 1, 
+		-ChessGame.SIZE + 2, 
+		ChessGame.SIZE + 2, 
+		2 * ChessGame.SIZE + 1, 
+		2 * ChessGame.SIZE - 1, 
+		ChessGame.SIZE - 2, 
+		-ChessGame.SIZE - 2, 
+		-(2 * ChessGame.SIZE) - 1 };
 
-	public Knight(Chessboard board, boolean white) {
+	public Knight(ChessGame board, boolean white) {
 		super(board, white);
 		
 		if(white)
@@ -50,8 +50,8 @@ public class Knight extends Piece {
 		
 		//checking if no border was crossed.
 		int pos = getPosition();
-		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 3 
-				|| Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE ) >= 3 )
+		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 3 
+				|| Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 3 )
 		{
 			return false;
 		}

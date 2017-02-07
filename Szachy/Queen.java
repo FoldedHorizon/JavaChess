@@ -6,16 +6,16 @@ import java.util.List;
 public class Queen extends Piece {
 
 	protected static int translations [] = 
-		{ -Chessboard.SIZE, 
-		-Chessboard.SIZE + 1, 
+		{ -ChessGame.SIZE, 
+		-ChessGame.SIZE + 1, 
 		1, 
-		1 + Chessboard.SIZE, 
-		Chessboard.SIZE, 
-		Chessboard.SIZE - 1, 
+		1 + ChessGame.SIZE, 
+		ChessGame.SIZE, 
+		ChessGame.SIZE - 1, 
 		-1,
-		-Chessboard.SIZE -1 };
+		-ChessGame.SIZE -1 };
 	
-	public Queen(Chessboard board, boolean white) 
+	public Queen(ChessGame board, boolean white) 
 	{
 		super(board, white);		
 		
@@ -35,11 +35,11 @@ public class Queen extends Piece {
 		
 		//checking if no border was crossed.
 		int pos = getPosition();
-		if ( (Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) 
-				!= Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE)) 
+		if ( (Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) 
+				!= Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE)) 
 				&& 
-				( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 1 
-						&& Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE) >= 1) )
+				( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 1 
+						&& Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE) >= 1) )
 		{
 			return false;
 		}
@@ -61,7 +61,7 @@ public class Queen extends Piece {
 					out.add(mv);
 					
 				//cannot jump over other pieces
-				if(board.getPiece(mv.where) != null)
+				if(game.getChessboard().getPiece(mv.where) != null)
 					break;
 			}
 		}

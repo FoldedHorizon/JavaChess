@@ -6,16 +6,16 @@ public class King extends Piece
 {
 	
 	protected static int translations [] = 
-		{ -Chessboard.SIZE, 
-		-Chessboard.SIZE + 1, 
+		{ -ChessGame.SIZE, 
+		-ChessGame.SIZE + 1, 
 		1, 
-		1 + Chessboard.SIZE, 
-		Chessboard.SIZE, 
-		Chessboard.SIZE - 1, 
+		1 + ChessGame.SIZE, 
+		ChessGame.SIZE, 
+		ChessGame.SIZE - 1, 
 		-1,
-		-Chessboard.SIZE -1 };
+		-ChessGame.SIZE -1 };
 	
-	public King(Chessboard board, boolean white) 
+	public King(ChessGame board, boolean white) 
 	{
 		super(board, white);
 		
@@ -35,8 +35,8 @@ public class King extends Piece
 		
 		//checking if no border was crossed.
 		int pos = getPosition();
-		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 2 
-				|| Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE ) >= 2 )
+		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 2 
+				|| Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 2 )
 		{
 			return false;
 		}

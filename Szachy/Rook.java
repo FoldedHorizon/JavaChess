@@ -5,9 +5,9 @@ import java.util.*;
 public class Rook extends Piece 
 {
 
-	protected static int translations [] = { -Chessboard.SIZE, 1, Chessboard.SIZE, -1 };
+	protected static int translations [] = { -ChessGame.SIZE, 1, ChessGame.SIZE, -1 };
 	
-	public Rook(Chessboard board, boolean white) 
+	public Rook(ChessGame board, boolean white) 
 	{
 		super(board,white);
 		if(white)
@@ -27,8 +27,8 @@ public class Rook extends Piece
 		
 		//checking if no border was crossed.
 		int pos = getPosition();
-		if ( Math.abs(pos%Chessboard.SIZE - move.where%Chessboard.SIZE) >= 1 
-				&& Math.abs(pos/Chessboard.SIZE - move.where/Chessboard.SIZE ) >= 1)
+		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 1 
+				&& Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 1)
 		{
 			return false;
 		}
@@ -51,7 +51,7 @@ public class Rook extends Piece
 					out.add(mv);
 				
 				//cannot jump over other pieces
-				if(board.getPiece(mv.where) != null)
+				if(game.getChessboard().getPiece(mv.where) != null)
 					break;
 			}
 		}

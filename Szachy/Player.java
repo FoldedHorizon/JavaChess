@@ -5,11 +5,10 @@ import java.util.*;
 public abstract class Player {
 
 	private List <Piece> myPieces;
-	protected Chessboard board;
-	private String name;
+	protected ChessGame game;
+	protected String name;
 	
 	
-	protected abstract float evaluate(Move move);
 	protected abstract Move chooseMove(List <Move> moves);
 
 	public String getName()
@@ -39,11 +38,11 @@ public abstract class Player {
 		return chooseMove(all);
 	}
 	
-	protected Player(Chessboard b, List <Piece> p, String name)
+	protected Player(ChessGame game, List <Piece> pieces, String name)
 	{
-		board = b;
+		this.game = game;
 		myPieces = new ArrayList <Piece>();
-		myPieces.addAll(p);
+		myPieces.addAll(pieces);
 		this.name = name;
 	}
 }

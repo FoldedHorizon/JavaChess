@@ -6,16 +6,9 @@ public class AggressivePlayer extends Player {
 
 	Random r = new Random();
 	
-	public AggressivePlayer(Chessboard b, List<Piece> p, String name) 
+	public AggressivePlayer(ChessGame game, List<Piece> pieces, String name) 
 	{
-		super(b, p, name);
-	}
-
-	@Override
-	protected float evaluate(Move move) 
-	{
-		// TODO Auto-generated method stub
-		return 0;
+		super(game, pieces, name);
 	}
 
 	@Override
@@ -34,7 +27,7 @@ public class AggressivePlayer extends Player {
 		//removing non-aggressive moves
 		for(int i = 0; i < moves.size(); i++)
 		{
-			if(board.getPiece(moves.get(i).where) == null)
+			if(game.getChessboard().getPiece(moves.get(i).where) == null)
 				moves.remove(i);
 		}
 		
