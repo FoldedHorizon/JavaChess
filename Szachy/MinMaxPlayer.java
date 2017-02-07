@@ -6,7 +6,6 @@ public class MinMaxPlayer extends Player {
 
 	public MinMaxPlayer(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 

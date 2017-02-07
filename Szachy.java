@@ -12,7 +12,7 @@ public class Szachy
 		Player black = new HumanPlayer();
 		
 		//Or let a random be the prey.
-		//black = new RandomPlayer(this,chessboard.spawnBlackSet(this),"Random");
+		//Player black = new RandomPlayer("Random");
 				
 		ChessGame game = new ChessGame(white, black); 
 		game.play(70);
