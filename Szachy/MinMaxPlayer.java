@@ -12,6 +12,7 @@ public class MinMaxPlayer extends Player {
 
 	@Override
 	protected Move chooseMove(List<Move> moves) {
+		Chessboard c = new Chessboard(game.getChessboard());
 		Move bestMove = moves.get(0);
 		for(Move i : moves)
 		{

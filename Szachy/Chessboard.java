@@ -12,6 +12,17 @@ public class Chessboard {
 		board = new Piece [64];
 	}
 	
+	public Chessboard(Chessboard chessboard) 
+	{
+		board = new Piece [64];
+
+		for(Piece i : chessboard.board)
+		{
+			
+		}
+		
+	}
+
 	protected Piece getPiece(int pos)
 	{
 		if(pos < 0 || pos >= 64)
