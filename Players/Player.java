@@ -50,6 +50,11 @@ public abstract class Player {
 		this.name = name;
 	}
 	
+	public boolean isWhite()
+	{
+		return game.isWhite(this);
+	}
+	
 	public void init(ChessGame game)
 	{
 		this.game = game;

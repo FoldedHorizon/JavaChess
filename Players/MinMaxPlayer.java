@@ -13,6 +13,15 @@ public class MinMaxPlayer extends Player {
 		super(name);
 	}	
 
+	private int getScoreAfterNSteps(int n)
+	{
+		if( n == 0 )
+		{
+//			int max =
+	//		evaluate(game.getChessboard().getPieces(isWhite()));
+		}
+		return -1;
+	}
 
 
 	@Override
