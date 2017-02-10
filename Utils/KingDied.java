@@ -1,4 +1,4 @@
-package Szachy;
+package Utils;
 
 public class KingDied extends Exception {
 

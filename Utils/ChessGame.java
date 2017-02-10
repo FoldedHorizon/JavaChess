@@ -1,10 +1,13 @@
+package Utils;
 
-package Szachy;
+
+import Pieces.Piece;
+import Players.Player;
 
 
 public class ChessGame {
 //---------------------------------------------------------------------
-	protected final static int SIZE = 8;
+	public final static int SIZE = 8;
 
 
 //---------------------------------------------------------------------
@@ -17,19 +20,19 @@ public class ChessGame {
 	
 //---------------------------------------------------------------------
 	
-	protected Chessboard getChessboard()
+	public Chessboard getChessboard()
 	{
 		return chessboard;
 	}
 	
 //---------------------------------------------------------------------
 	
-	protected Player getWhitePlayer() 
+	public Player getWhitePlayer() 
 	{
 		return white;
 	}
 	
-	protected Player getBlackPlayer() 
+	public Player getBlackPlayer() 
 	{
 		return black;
 	}
@@ -55,7 +58,7 @@ public class ChessGame {
 				if(chess == null)
 					out += (".");
 				else
-					out += chess.sign;
+					out += chess;
 			}
 			out += ( " " +  (8 - i) + "\n");
 		}
@@ -116,11 +119,13 @@ public class ChessGame {
 	
 	public ChessGame(Player whitePlayer, Player blackPlayer)
 	{
-		chessboard = new Chessboard();
+		chessboard = new Chessboard(this);
 		white = whitePlayer;
 		black = blackPlayer;
-		white.init(this, chessboard.spawnWhiteSet(this));
-		black.init(this, chessboard.spawnBlackSet(this));
+//		chessboard.spawnWhiteSet(this);
+	//	chessboard.spawnBlackSet(this);
+		white.init(this);
+		black.init(this);
 		
 	}
 	
@@ -129,42 +134,3 @@ public class ChessGame {
 
 }
 
-class Move
-{
-	public Piece who;
-	public int where;
-	
-	public Move(Piece who, int where)
-	{
-		this.who = who;
-		this.where = where;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return new String("Ruch " + who.sign + " z " + positionToString(who.getPosition()) + " na " + positionToString(where));
-	}
-	
-	private String positionToString(int pos)
-	{
-		String out = Character.toString((char)(65 + (pos%8)));
-		//String out = Character.toString((char)('A' + (pos%8)));
-		
-		out += 8 - (pos/8);
-		return out;
-	}
-	
-	@Override
-	public boolean equals(Object other)
-	{
-		if(other.getClass() != getClass())
-			return false;
-		
-		Move mv = (Move)other;
-		if(mv.who == who && mv.where == where)
-			return true;
-		
-		return false;
-	}
-}

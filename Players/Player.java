@@ -1,13 +1,23 @@
-package Szachy;
+package Players;
+
+import Utils.*;
 
 import java.util.*;
 
+import Pieces.Piece;
+import Utils.ChessGame;
+
 public abstract class Player {
 
-	private List <Piece> myPieces;
+	//private List <Piece> myPieces;
 	protected ChessGame game;
 	protected String name;
 	
+	protected List <Piece> getMyPieces()
+	{
+		//get coressponding pieces
+		return game.getChessboard().getPieces(game.getWhitePlayer()==this);
+	}
 	
 	protected abstract Move chooseMove(List <Move> moves);
 	
@@ -16,20 +26,16 @@ public abstract class Player {
 		return new String(name);
 	}
 	
-	protected void pieceCaptured(Piece piece)
+	public void pieceCaptured(Piece piece)
 	{
-		if (!myPieces.remove(piece))
-		{
-			//Trying to remove pieces too often or from a wrong player, ay?
-			assert false;
-		}
+		System.out.println(piece + " captured!");
 	}
 	
-	protected Move getMove()
+	public Move getMove()
 	{
 		//Gather all possible moves.
 		List <Move> all = new ArrayList <Move>();
-		for(Piece i : myPieces)
+		for(Piece i : getMyPieces())
 		{
 			all.addAll(i.getMoves());
 		}
@@ -44,10 +50,8 @@ public abstract class Player {
 		this.name = name;
 	}
 	
-	protected void init(ChessGame game, List <Piece> pieces)
+	public void init(ChessGame game)
 	{
 		this.game = game;
-		myPieces = new ArrayList <Piece>();
-		myPieces.addAll(pieces);
 	}
 }

@@ -1,6 +1,11 @@
-package Szachy;
+package Pieces;
+
+import Utils.*;
 
 import java.util.*;
+
+import Utils.ChessGame;
+import Utils.KingDied;
 
 public class King extends Piece 
 {
@@ -45,7 +50,7 @@ public class King extends Piece
 	}
 
 	@Override
-	protected List<Move> getMoves() 
+	public List<Move> getMoves() 
 	{
 		List <Move> out = new ArrayList <Move>();
 		
@@ -62,7 +67,7 @@ public class King extends Piece
 	}
 	
 	@Override
-	protected void destroy() throws KingDied
+	public void destroy() throws KingDied
 	{
 		super.destroy();
 		throw new KingDied();

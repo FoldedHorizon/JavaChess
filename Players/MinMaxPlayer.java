@@ -1,12 +1,17 @@
-package Szachy;
+package Players;
+
+import Utils.*;
 
 import java.util.List;
 
+import Utils.Chessboard;
+
 public class MinMaxPlayer extends Player {
 
-	public MinMaxPlayer(String name) {
+	public MinMaxPlayer(String name) 
+	{
 		super(name);
-	}
+	}	
 
 
 

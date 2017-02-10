@@ -1,6 +1,9 @@
-package Szachy;
+package Players;
+
+import Utils.*;
 
 import java.util.*;
+
 
 public class RandomPlayer extends Player {
 	

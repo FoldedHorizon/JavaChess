@@ -1,15 +1,21 @@
-package Szachy;
+package Utils;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Pieces.*;
 
 public class Chessboard {
 
 	private Piece [] board;
 	
-	Chessboard()
+	public Chessboard(ChessGame game)
 	{
 		board = new Piece [64];
+
+		spawnWhiteSet(game);
+		spawnBlackSet(game);
 	}
 	
 	public Chessboard(Chessboard chessboard) 
@@ -23,14 +29,14 @@ public class Chessboard {
 		
 	}
 
-	protected Piece getPiece(int pos)
+	public Piece getPiece(int pos)
 	{
 		if(pos < 0 || pos >= 64)
 			return null;
 		return board[pos];
 	}
 	
-	protected int getPosition(char col, int row)
+	public int getPosition(char col, int row)
 	{
 		int pos = (int)(Character.toUpperCase(col)) - 65;
 		pos += (ChessGame.SIZE - row) * ChessGame.SIZE;
@@ -38,7 +44,7 @@ public class Chessboard {
 		return pos;
 	}
 	
-	protected int getPosition(Piece piece)
+	public int getPosition(Piece piece)
 	{
 		for(int i = 0; i < 64; i++)
 		{
@@ -55,7 +61,7 @@ public class Chessboard {
 	}
 	
 	
-	protected List <Piece> spawnWhiteSet(ChessGame game)
+	private void spawnWhiteSet(ChessGame game)
 	{
 		int j = 0;
 		//white ♜♞♝♛♚♝♞♜♟
@@ -69,15 +75,9 @@ public class Chessboard {
 		board[j++] = new Rook(game, true);
 		for (int i = 0; i < 8; i++)
 			board[j++] = new Pawn(game, true);
-
-		List <Piece> out = new ArrayList <Piece>();
-		for (int i = 0; i < 16; i++)
-			out.add(board[i]);
-		
-		return out;
 	}
 	
-	protected List <Piece> spawnBlackSet(ChessGame game)
+	private void spawnBlackSet(ChessGame game)
 	{
 		int j = 64 - 16;
 		//black ♖♘♗♕♔♗♘♖♙
@@ -92,11 +92,6 @@ public class Chessboard {
 		board[j++] = new Knight(game, false);
 		board[j++] = new Rook(game, false);
 		
-		List <Piece> out = new ArrayList <Piece>();
-		for (int i = 64 - 16; i < 64; i++)
-			out.add(board[i]);
-		
-		return out;
 	}
 	
 	protected void execute(Move move) throws KingDied
@@ -117,5 +112,18 @@ public class Chessboard {
 		
 		//Sets new position
 		board[move.where] = move.who;
+	}
+
+	public List<Piece> getPieces(boolean wantWhite) 
+	{
+		List <Piece> out = new ArrayList <Piece> ();
+		
+		for(Piece i : board)
+		{
+			if(i != null && i.isWhite() == wantWhite)
+				out.add(i);
+		}
+		
+		return out;
 	}
 }

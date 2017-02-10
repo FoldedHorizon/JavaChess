@@ -1,6 +1,11 @@
-package Szachy;
+package Pieces;
+
+import Utils.*;
 
 import java.util.*;
+
+import Utils.ChessGame;
+
 
 public class Knight extends Piece {
 
@@ -26,7 +31,7 @@ public class Knight extends Piece {
 	}
 	
 	@Override
-	protected List <Move> getMoves()
+	public List <Move> getMoves()
 	{
 		List <Move> out = new ArrayList <Move>();
 		

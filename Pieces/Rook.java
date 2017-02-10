@@ -1,25 +1,27 @@
-package Szachy;
+package Pieces;
+
+import Utils.*;
 
 import java.util.*;
 
-public class Bishop extends Piece {
+import Utils.ChessGame;
 
-	protected static int translations [] = 
-		{ -ChessGame.SIZE + 1, 
-		1 + ChessGame.SIZE, 
-		ChessGame.SIZE - 1, 	
-		-ChessGame.SIZE -1 };
+
+public class Rook extends Piece 
+{
+
+	protected static int translations [] = { -ChessGame.SIZE, 1, ChessGame.SIZE, -1 };
 	
-	public Bishop(ChessGame board, boolean white) 
+	public Rook(ChessGame board, boolean white) 
 	{
-		super(board, white);
-		
+		super(board,white);
 		if(white)
-			sign = '♝';
+			sign = '♜';
 		else
-			sign = '♗';
+			sign = '♖';
 		
 		value = 5;
+		
 	}
 
 	@Override
@@ -30,8 +32,8 @@ public class Bishop extends Piece {
 		
 		//checking if no border was crossed.
 		int pos = getPosition();
-		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) 
-				!= Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE) )
+		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 1 
+				&& Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 1)
 		{
 			return false;
 		}
@@ -40,7 +42,7 @@ public class Bishop extends Piece {
 	}
 	
 	@Override
-	protected List<Move> getMoves() 
+	public List <Move> getMoves()
 	{
 		List <Move> out = new ArrayList <Move>();
 		
@@ -61,5 +63,6 @@ public class Bishop extends Piece {
 		
 		return out;
 	}
+	
 
 }

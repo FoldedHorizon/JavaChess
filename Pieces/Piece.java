@@ -1,6 +1,10 @@
-package Szachy;
+package Pieces;
+
 
 import java.util.*;
+
+import Players.Player;
+import Utils.*;
 
 public abstract class Piece {
 
@@ -10,19 +14,19 @@ public abstract class Piece {
 	protected char sign;//wtf? there is no access specifier that lets only subclasses have access to a field? Seriously? There is only possibility for whole package to see a field!?
 	private boolean white;
 	
-	protected abstract List <Move> getMoves();
+	public abstract List <Move> getMoves();
 	
-	protected int getPosition()
+	public int getPosition()
 	{
 		return game.getChessboard().getPosition(this);
 	}
 	
-	protected boolean isWhite()
+	public boolean isWhite()
 	{
 		return white;
 	}
 	
-	protected void destroy() throws KingDied
+	public void destroy() throws KingDied
 	{
 		getOwner().pieceCaptured(this);
 	}
@@ -63,4 +67,9 @@ public abstract class Piece {
 		this.white = white;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return Character.toString(sign);
+	}
 }

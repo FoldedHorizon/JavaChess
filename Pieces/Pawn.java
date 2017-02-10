@@ -1,7 +1,12 @@
-package Szachy;
+package Pieces;
+
+import Utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Utils.ChessGame;
+
 
 public class Pawn extends Piece {
 
@@ -34,7 +39,7 @@ public class Pawn extends Piece {
 	}
 	
 	@Override
-	protected List<Move> getMoves() {
+	public List<Move> getMoves() {
 		List <Move> out = new ArrayList <Move>();
 		
 		int translation;

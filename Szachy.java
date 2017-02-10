@@ -1,5 +1,6 @@
 
-import Szachy.*;
+import Players.*;
+import Utils.*;
 
 public class Szachy
 {
@@ -9,10 +10,10 @@ public class Szachy
 		Player white = new AggressivePlayer("Alan");
 		
 		//You can play by yourself ;)
-		Player black = new HumanPlayer();
+		//Player black = new HumanPlayer();
 		
 		//Or let a random be the prey.
-		//Player black = new RandomPlayer("Random");
+		Player black = new RandomPlayer("Random");
 				
 		ChessGame game = new ChessGame(white, black); 
 		game.play(70);

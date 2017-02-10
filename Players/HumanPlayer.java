@@ -1,7 +1,11 @@
-package Szachy;
+package Players;
+
+import Utils.*;
 
 import java.util.List;
 import java.util.Scanner;
+
+import Pieces.Piece;
 
 public class HumanPlayer extends Player {
 
