@@ -20,11 +20,13 @@ public class Chessboard {
 	
 	public Chessboard(Chessboard chessboard) 
 	{
-		board = new Piece [64];
+		board = new Piece [ ChessGame.SIZE * ChessGame.SIZE ];
 
-		for(Piece i : chessboard.board)
+		for(int i = 0; i < ChessGame.SIZE * ChessGame.SIZE; i++)
 		{
-			
+                    if(chessboard.board[i] != null)
+                        board[i] = chessboard.board[i].copy(this);
+                    
 		}
 		
 	}
@@ -94,7 +96,7 @@ public class Chessboard {
 		
 	}
 	
-	protected void execute(Move move) throws KingDied
+	public void execute(Move move) throws KingDied
 	{
 		//Clear old position
 		for(int i = 0; i < 64; i++)
@@ -125,5 +127,15 @@ public class Chessboard {
 		}
 		
 		return out;
+	}
+
+	public List <Move> gatherAllMoves(boolean forWhite)
+	{
+        List <Move> all = new ArrayList <Move>();
+        for(Piece i : getPieces(forWhite))
+        {
+                all.addAll(i.getMoves());
+        }
+        return all;
 	}
 }
