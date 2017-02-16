@@ -11,14 +11,17 @@ public abstract class Piece {
 	protected static int translations [];
 	protected int value;
 	protected ChessGame game;
+        protected Chessboard board;
 	protected char sign;//wtf? there is no access specifier that lets only subclasses have access to a field? Seriously? There is only possibility for whole package to see a field!?
 	private boolean white;
 	
 	public abstract List <Move> getMoves();
 	
+        public abstract Piece copy(Chessboard board);
+        
 	public int getPosition()
 	{
-		return game.getChessboard().getPosition(this);
+		return board.getPosition(this);
 	}
 	
 	public boolean isWhite()
@@ -33,7 +36,7 @@ public abstract class Piece {
 	
 	protected Player getOwner()
 	{
-		if(white)
+		if( white )
 			return game.getWhitePlayer();
 		else
 			return game.getBlackPlayer();
@@ -48,11 +51,12 @@ public abstract class Piece {
 	protected boolean isLegal(Move move)
 	{
 		//Out of board
-		if((move.where >= ChessGame.SIZE * ChessGame.SIZE) || (move.where < 0))
+		if( ( move.where >= ChessGame.SIZE * ChessGame.SIZE ) || ( move.where < 0 ) )
 			return false;
-		
-		Piece other = game.getChessboard().getPiece(move.where);
-		if(other != null)
+
+                //Check if tile to bo moved to isn't being occupied by piece from the same team.
+		Piece other = board.getPiece(move.where);
+		if( other != null )
 		{
 			if( other.isWhite() == this.isWhite() )
 				return false;
@@ -65,6 +69,7 @@ public abstract class Piece {
 	{
 		this.game = game;
 		this.white = white;
+                this.board = game.getChessboard();
 	}
 	
 	@Override

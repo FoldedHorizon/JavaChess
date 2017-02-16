@@ -9,16 +9,15 @@ import Utils.ChessGame;
 
 public abstract class Player {
 
-	//private List <Piece> myPieces;
 	protected ChessGame game;
 	protected String name;
 	
-	protected List <Piece> getMyPieces()
+/*	protected List <Piece> getMyPieces()
 	{
 		//get coressponding pieces
 		return game.getChessboard().getPieces(game.getWhitePlayer()==this);
 	}
-	
+*/	
 	protected abstract Move chooseMove(List <Move> moves);
 	
 	public String getName()
@@ -31,22 +30,17 @@ public abstract class Player {
 		System.out.println(piece + " captured!");
 	}
 	
-	public Move getMove()
+	public Move getMove() throws NoValidMove
 	{
-		//Gather all possible moves.
-		List <Move> all = new ArrayList <Move>();
-		for(Piece i : getMyPieces())
-		{
-			all.addAll(i.getMoves());
-		}
-		
 		//Run evaluating function and return its result.
-		return chooseMove(all);
+		Move result = chooseMove(game.getChessboard().gatherAllMoves(this.isWhite())); 
+		if(result == null)
+            throw new NoValidMove();
+        return result;
 	}
-	
+	        
 	protected Player(String name)
 	{
-
 		this.name = name;
 	}
 	
