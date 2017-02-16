@@ -56,7 +56,7 @@ public class HumanPlayer extends Player {
 
 		System.out.println(" to: ");
 		int where = getPlayerInput();
-		return new Move(who, where);
+		return new Move(who.getPosition(), where);
 	}
 	
 	@Override

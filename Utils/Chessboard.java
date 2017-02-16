@@ -1,8 +1,7 @@
 package Utils;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import Pieces.*;
 
@@ -24,9 +23,9 @@ public class Chessboard {
 
 		for(int i = 0; i < ChessGame.SIZE * ChessGame.SIZE; i++)
 		{
-                    if(chessboard.board[i] != null)
-                        board[i] = chessboard.board[i].copy(this);
-                    
+            if(chessboard.board[i] != null)
+                board[i] = chessboard.board[i].copy(this);
+            
 		}
 		
 	}
@@ -99,9 +98,10 @@ public class Chessboard {
 	public void execute(Move move) throws KingDied
 	{
 		//Clear old position
+		Piece who = getPiece(move.from);
 		for(int i = 0; i < 64; i++)
 		{
-			if(board[i] == move.who)
+			if(board[i] == who)
 			{
 				board[i] = null;
 				break;
@@ -113,7 +113,7 @@ public class Chessboard {
 			board[move.where].destroy();
 		
 		//Sets new position
-		board[move.where] = move.who;
+		board[move.where] = who;
 	}
 
 	public List<Piece> getPieces(boolean wantWhite) 
@@ -138,4 +138,35 @@ public class Chessboard {
         }
         return all;
 	}
+
+	// ---------------------------------------------------------------------
+	// All "calc" functions are calculated from a white player point-of-view
+	public int calcMaterialScore()
+	{
+		int score = 0;
+		//Add white player's pieces' values
+		for (Piece i : getPieces(true))
+		{
+			score += i.getValue();
+		}
+		//Add black player's pieces' values
+		for (Piece i : getPieces(false))
+		{
+			score -= i.getValue();
+		}	
+		
+		return score;
+	}
+
+	public int calcBlokedPawns()
+	{
+		// TODO later ;) Not so important.
+		return 0;
+	}
+
+	public int calcMobility()
+	{
+		return gatherAllMoves(true).size() - gatherAllMoves(false).size();
+	}
+	
 }

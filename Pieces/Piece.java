@@ -9,7 +9,6 @@ import Utils.*;
 public abstract class Piece {
 
 	protected static int translations [];
-	protected int value;
 	protected ChessGame game;
         protected Chessboard board;
 	protected char sign;//wtf? there is no access specifier that lets only subclasses have access to a field? Seriously? There is only possibility for whole package to see a field!?
@@ -42,10 +41,7 @@ public abstract class Piece {
 			return game.getBlackPlayer();
 	}
 	
-	protected int getValue()
-	{
-		return value;
-	}
+	public abstract int getValue();
 
 	////Method to be overridden, but should be called from children (super.isLegal() && child output). //Not true. Changed it. And commented the comment in case I would like it to be back the old way.
 	protected boolean isLegal(Move move)

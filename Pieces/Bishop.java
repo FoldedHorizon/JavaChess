@@ -7,25 +7,36 @@ import java.util.*;
 import Utils.ChessGame;
 
 
-public class Bishop extends Piece {
+public class Bishop extends Piece 
+{
 
+	private final static int value = 3;
+	
 	protected static int translations [] = 
 		{ -ChessGame.SIZE + 1, 
 		1 + ChessGame.SIZE, 
 		ChessGame.SIZE - 1, 	
 		-ChessGame.SIZE -1 };
 	
-	public Bishop(ChessGame board, boolean white) 
+	public Bishop(ChessGame game, boolean white) 
 	{
-		super(board, white);
+		super(game, white);
 		
 		if(white)
 			sign = '♝';
 		else
 			sign = '♗';
 		
-		value = 5;
 	}
+        
+    @Override
+    public Piece copy(Chessboard board)
+    {
+        Piece out = new Bishop(game,isWhite());
+        out.board = board;
+        out.sign = sign;
+        return out;
+    }
 
 	@Override
 	protected boolean isLegal(Move move)
@@ -51,15 +62,15 @@ public class Bishop extends Piece {
 		
 		for(int j = 0; j < translations.length; j++)
 		{
-			for(int i = 1; i < 8; i++)
+			for(int i = 1; i < ChessGame.SIZE; i++)
 			{
-				Move mv = new Move(this, getPosition() + i * translations[j]);
+				Move mv = new Move(this.getPosition(), getPosition() + i * translations[j]);
 				
 				if(isLegal(mv))
 					out.add(mv);
 				
 				//cannot jump over other pieces
-				if(game.getChessboard().getPiece(mv.where) != null)
+				if(board.getPiece(mv.where) != null)
 					break;
 			}
 		}
@@ -67,4 +78,10 @@ public class Bishop extends Piece {
 		return out;
 	}
 
+	@Override
+	public int getValue()
+	{
+		return value * ChessGame.MATERIALMULTIPLIER;
+	}
+	
 }

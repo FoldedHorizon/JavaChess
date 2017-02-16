@@ -9,7 +9,8 @@ import Utils.KingDied;
 
 public class King extends Piece 
 {
-	
+	private final static int value = 100;
+
 	protected static int translations [] = 
 		{ -ChessGame.SIZE, 
 		-ChessGame.SIZE + 1, 
@@ -20,18 +21,26 @@ public class King extends Piece
 		-1,
 		-ChessGame.SIZE -1 };
 	
-	public King(ChessGame board, boolean white) 
+	public King(ChessGame game, boolean white) 
 	{
-		super(board, white);
+		super(game, white);
 		
 		if(white)
 			sign = '♚';
 		else
 			sign = '♔';
 		
-		value = 100;
 	}
 	
+    @Override
+    public Piece copy(Chessboard board)
+    {
+        Piece out = new King(game,isWhite());
+        out.board = board;
+        out.sign = sign;
+        return out;
+    }
+    
 	@Override
 	protected boolean isLegal(Move move)
 	{
@@ -41,7 +50,7 @@ public class King extends Piece
 		//checking if no border was crossed.
 		int pos = getPosition();
 		if ( Math.abs(pos%ChessGame.SIZE - move.where%ChessGame.SIZE) >= 2 
-				|| Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 2 )
+			|| Math.abs(pos/ChessGame.SIZE - move.where/ChessGame.SIZE ) >= 2 )
 		{
 			return false;
 		}
@@ -56,7 +65,7 @@ public class King extends Piece
 		
 		for(int j = 0; j < translations.length; j++)
 		{
-			Move mv = new Move(this, getPosition() + translations[j]);
+			Move mv = new Move(this.getPosition(), getPosition() + translations[j]);
 			if(isLegal(mv))
 			{
 				out.add(mv);
@@ -71,6 +80,12 @@ public class King extends Piece
 	{
 		super.destroy();
 		throw new KingDied();
+	}
+	
+	@Override
+	public int getValue()
+	{
+		return value * ChessGame.MATERIALMULTIPLIER;
 	}
 
 }

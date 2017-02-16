@@ -8,19 +8,29 @@ import java.util.List;
 import Utils.ChessGame;
 
 
-public class Pawn extends Piece {
+public class Pawn extends Piece 
+{
 
-	public Pawn(ChessGame board, boolean white) {
-		super(board, white);
+	private final static int value = 1;
+
+	public Pawn(ChessGame game, boolean white) {
+		super(game, white);
 		
 		if(white)
 			sign = '♟';
 		else
 			sign = '♙';
-		
-		value = 1;
 	}
-	
+        
+    @Override
+    public Piece copy(Chessboard board)
+    {
+        Piece out = new Pawn(game,isWhite());
+        out.board = board;
+        out.sign = sign;
+        return out;
+    }
+        
 	@Override
 	protected boolean isLegal(Move move)
 	{
@@ -39,7 +49,8 @@ public class Pawn extends Piece {
 	}
 	
 	@Override
-	public List<Move> getMoves() {
+	public List<Move> getMoves() 
+	{
 		List <Move> out = new ArrayList <Move>();
 		
 		int translation;
@@ -50,25 +61,31 @@ public class Pawn extends Piece {
 			translation = ChessGame.SIZE;	
 		
 		//forward	
-		Move mv = new Move(this, getPosition() + translation);
-		if(isLegal(mv) && (game.getChessboard().getPiece(mv.where) == null))
+		Move mv = new Move(this.getPosition(), getPosition() + translation);
+		if(isLegal(mv) && (board.getPiece(mv.where) == null))
 			out.add(mv);
 		
 		//left
 		translation += -1;
-		mv = new Move(this, getPosition() + translation);
-		if(isLegal(mv) && (game.getChessboard().getPiece(mv.where) != null))
+		mv = new Move(this.getPosition(), getPosition() + translation);
+		if(isLegal(mv) && (board.getPiece(mv.where) != null))
 			out.add(mv);
 		//right
 		translation += 2;
-		mv = new Move(this, getPosition() + translation);
-		if(isLegal(mv) && (game.getChessboard().getPiece(mv.where) != null))
+		mv = new Move(this.getPosition(), getPosition() + translation);
+		if(isLegal(mv) && (board.getPiece(mv.where) != null))
 			out.add(mv);
 		
 		//I know it's ugly copy-paste. Maybe I will come back and rewrite it later.
 		
 		return out;
 		
+	}
+
+	@Override
+	public int getValue()
+	{
+		return value * ChessGame.MATERIALMULTIPLIER;
 	}
 
 }

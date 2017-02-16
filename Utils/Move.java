@@ -1,22 +1,21 @@
 package Utils;
 
-import Pieces.*;
-
 public class Move
 {
-	public Piece who;
-	public int where;
+	public final int from;
+	public final int where;
+	public int score;
 	
-	public Move(Piece who, int where)
+	public Move(int from, int where)
 	{
-		this.who = who;
+		this.from = from;
 		this.where = where;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return new String("Ruch " + who + " z " + positionToString(who.getPosition()) + " na " + positionToString(where));
+		return new String("Ruch " + ChessGame.getInstance().getChessboard().getPiece(from) + " z " + positionToString(from) + " na " + positionToString(where));
 	}
 	
 	private String positionToString(int pos)
@@ -35,7 +34,7 @@ public class Move
 			return false;
 		
 		Move mv = (Move)other;
-		if(mv.who == who && mv.where == where)
+		if(mv.from == from && mv.where == where)
 			return true;
 		
 		return false;

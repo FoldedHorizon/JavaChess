@@ -1,68 +1,73 @@
 package Players;
 
 import Utils.*;
-
 import java.util.List;
 
-import Utils.Chessboard;
 
-public class MinMaxPlayer extends Player {
+public class MinMaxPlayer extends Player
+{
 
-	public MinMaxPlayer(String name) 
+	public MinMaxPlayer(String name)
 	{
 		super(name);
-	}	
-
-	private int getScoreAfterNSteps(int n)
+	}
+	
+	public int evaluate(Chessboard board, boolean isWhite)
 	{
-		if( n == 0 )
-		{
-//			int max =
-	//		evaluate(game.getChessboard().getPieces(isWhite()));
-		}
-		return -1;
+		if(isWhite)
+			return board.calcMaterialScore() 
+				- board.calcBlokedPawns() 
+				+ board.calcMobility();
+		
+		else
+			return -( board.calcMaterialScore() 
+					- board.calcBlokedPawns() 
+					+ board.calcMobility() );
 	}
 
-        public int evaluate( Chessboard board )
-        {
-        	//Note! In order for negaMax to work, your Static Evaluation function must 
-        	//return a score relative to the side to being evaluated. (e.g. the simplest 
-        	//score evaluation could be: 
-        	//score = materialWeight * (numWhitePieces - numBlackPieces) * who2move 
-        	//where who2move = 1 for white, and who2move = -1 for black).
-            return board.calcMaterialScore() - calcBlokedPawns() + calcMobility();
-        }
-        
-        int negaMax( int depth, Chessboard board ) 
-        {
-            if ( depth == 0 ) 
-                return evaluate( board );
-            int max = -9999999;
-            for ( Move i : board.gatherAllMoves( this )  
-            {
-                // make move
-                Chessboard clonedBoard = new Chessboard(board);
-                clonedBoard.execute(i);
-                int score = -negaMax( depth - 1, clonedBoard );
-                // unmake move
-                if( score > max )
-                    max = score;
-            }
-            return max;
-        }
+	int negaMax( int depth, Chessboard board, boolean isWhite) 
+	{
+		
+		if ( depth == 0 ) 
+			return evaluate( board, isWhite );
+		
+		try
+		{
+			board.execute(move);	
+		}
+		catch(KingDied e)
+		{
+			return ChessGame.INFINITY;
+		}
+		
+		int max = -ChessGame.INFINITY;
+		List<Move> a = board.gatherAllMoves(this.isWhite());
+		
+		for ( int i = 0; i <  a.size(); i++ )
+		{
+			Chessboard clonedBoard = new Chessboard(board);
+
+			// make move
+			i.score = - negaMax( depth - 1, clonedBoard );
+			// unmake move
+			if( i.score > max.score )
+				max = i;
+		}
+		return max;
+	}
 
 	@Override
-	protected Move chooseMove(List<Move> moves) 
-        {
+	protected Move chooseMove(List<Move> moves)
+	{
 		Chessboard c = new Chessboard(game.getChessboard());
 		Move bestMove = moves.get(0);
-		for(Move i : moves)
+		for (Move i : moves)
 		{
-			
+
 		}
 		return null;
-		//return moves.get(r.nextInt(moves.size()));	
-	
+		// return moves.get(r.nextInt(moves.size()));
+
 	}
 
 }
