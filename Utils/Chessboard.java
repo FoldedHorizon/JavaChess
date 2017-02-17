@@ -7,34 +7,31 @@ import Pieces.*;
 
 public class Chessboard {
 
-	private Piece [] board;
+	private Piece [] piecesOnBoard;
 	
-	public Chessboard(ChessGame game)
+	public Chessboard()
 	{
-		board = new Piece [64];
-
-		spawnWhiteSet(game);
-		spawnBlackSet(game);
+		piecesOnBoard = new Piece [ ChessGame.SIZE * ChessGame.SIZE ];
 	}
 	
-	public Chessboard(Chessboard chessboard) 
+	public static Chessboard copy(Chessboard chessboard)
 	{
-		board = new Piece [ ChessGame.SIZE * ChessGame.SIZE ];
-
+		Chessboard out = new Chessboard();
+		
 		for(int i = 0; i < ChessGame.SIZE * ChessGame.SIZE; i++)
 		{
-            if(chessboard.board[i] != null)
-                board[i] = chessboard.board[i].copy(this);
-            
+            if(chessboard.piecesOnBoard[i] != null)
+                out.piecesOnBoard[i] = chessboard.piecesOnBoard[i].copy(out);
 		}
 		
+		return out;
 	}
 
 	public Piece getPiece(int pos)
 	{
 		if(pos < 0 || pos >= 64)
 			return null;
-		return board[pos];
+		return piecesOnBoard[pos];
 	}
 	
 	public int getPosition(char col, int row)
@@ -49,7 +46,7 @@ public class Chessboard {
 	{
 		for(int i = 0; i < 64; i++)
 		{
-			if(board[i] == piece)
+			if(piecesOnBoard[i] == piece)
 			{
 				return i;
 			}
@@ -62,65 +59,70 @@ public class Chessboard {
 	}
 	
 	
-	private void spawnWhiteSet(ChessGame game)
-	{
+	private void spawnWhiteSet()
+	{		
 		int j = 0;
 		//white ♜♞♝♛♚♝♞♜♟
-		board[j++] = new Rook(game, true);
-		board[j++] = new Knight(game, true);
-		board[j++] = new Bishop(game, true);
-		board[j++] = new Queen(game, true);
-		board[j++] = new King(game, true);
-		board[j++] = new Bishop(game, true);
-		board[j++] = new Knight(game, true);
-		board[j++] = new Rook(game, true);
+		piecesOnBoard[j++] = new Rook(this, true);
+		piecesOnBoard[j++] = new Knight(this, true);
+		piecesOnBoard[j++] = new Bishop(this, true);
+		piecesOnBoard[j++] = new Queen(this, true);
+		piecesOnBoard[j++] = new King(this, true);
+		piecesOnBoard[j++] = new Bishop(this, true);
+		piecesOnBoard[j++] = new Knight(this, true);
+		piecesOnBoard[j++] = new Rook(this, true);
 		for (int i = 0; i < 8; i++)
-			board[j++] = new Pawn(game, true);
+			piecesOnBoard[j++] = new Pawn(this, true);
 	}
 	
-	private void spawnBlackSet(ChessGame game)
-	{
+	private void spawnBlackSet()
+	{		
 		int j = 64 - 16;
 		//black ♖♘♗♕♔♗♘♖♙
 		for (int i = 0; i < 8; i++)
-			board[j++] = new Pawn(game, false);
-		board[j++] = new Rook(game, false);
-		board[j++] = new Knight(game, false);
-		board[j++] = new Bishop(game, false);
-		board[j++] = new Queen(game, false);
-		board[j++] = new King(game, false);
-		board[j++] = new Bishop(game, false);
-		board[j++] = new Knight(game, false);
-		board[j++] = new Rook(game, false);
+			piecesOnBoard[j++] = new Pawn(this, false);
+		piecesOnBoard[j++] = new Rook(this, false);
+		piecesOnBoard[j++] = new Knight(this, false);
+		piecesOnBoard[j++] = new Bishop(this, false);
+		piecesOnBoard[j++] = new Queen(this, false);
+		piecesOnBoard[j++] = new King(this, false);
+		piecesOnBoard[j++] = new Bishop(this, false);
+		piecesOnBoard[j++] = new Knight(this, false);
+		piecesOnBoard[j++] = new Rook(this, false);
 		
 	}
 	
-	public void execute(Move move) throws KingDied
+	public String execute(Move move) throws KingDied
 	{
+		assert move != null;
+
+		String report = "";
 		//Clear old position
 		Piece who = getPiece(move.from);
 		for(int i = 0; i < 64; i++)
 		{
-			if(board[i] == who)
+			if(piecesOnBoard[i] == who)
 			{
-				board[i] = null;
+				piecesOnBoard[i] = null;
 				break;
 			}
 		}
 		
 		//Inform piece being captured of its fate.
-		if(board[move.where] != null)
-			board[move.where].destroy();
+		if(piecesOnBoard[move.where] != null)
+			report = piecesOnBoard[move.where].destroy();
 		
 		//Sets new position
-		board[move.where] = who;
+		piecesOnBoard[move.where] = who;
+		
+		return report;
 	}
 
-	public List<Piece> getPieces(boolean wantWhite) 
+	public List <Piece> getPieces(boolean wantWhite) 
 	{
 		List <Piece> out = new ArrayList <Piece> ();
 		
-		for(Piece i : board)
+		for(Piece i : piecesOnBoard)
 		{
 			if(i != null && i.isWhite() == wantWhite)
 				out.add(i);
@@ -166,7 +168,14 @@ public class Chessboard {
 
 	public int calcMobility()
 	{
-		return gatherAllMoves(true).size() - gatherAllMoves(false).size();
+		return (ChessGame.MATERIALMULTIPLIER/10) *(gatherAllMoves(true).size() - gatherAllMoves(false).size());
+	}
+
+	public void init()
+	{
+		spawnWhiteSet();
+		spawnBlackSet();
+		
 	}
 	
 }

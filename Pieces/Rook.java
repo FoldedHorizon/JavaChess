@@ -4,7 +4,6 @@ import Utils.*;
 
 import java.util.*;
 
-import Utils.ChessGame;
 
 
 public class Rook extends Piece 
@@ -13,9 +12,9 @@ public class Rook extends Piece
 	
 	protected static int translations [] = { -ChessGame.SIZE, 1, ChessGame.SIZE, -1 };
 	
-	public Rook(ChessGame game, boolean white) 
+	public Rook(Chessboard board, boolean white) 
 	{
-		super(game,white);
+		super(board,white);
 		if(white)
 			sign = '♜';
 		else
@@ -23,14 +22,13 @@ public class Rook extends Piece
 				
 	}
 
-        @Override
-        public Piece copy(Chessboard board)
-        {
-            Piece out = new Rook(game,isWhite());
-            out.board = board;
-            out.sign = sign;
-            return out;
-        }
+    @Override
+    public Piece copy(Chessboard newBoard)
+    {
+    	assert newBoard != null;
+        Piece out = new Rook(newBoard, isWhite());
+        return out;
+    }
         
 	@Override
 	protected boolean isLegal(Move move)
@@ -58,7 +56,8 @@ public class Rook extends Piece
 		{
 			for(int i = 1; i < ChessGame.SIZE; i++)
 			{
-				Move mv = new Move(this.getPosition(), getPosition() + i * translations[j]);
+				int myPos = getPosition();
+				Move mv = new Move(myPos, myPos + i * translations[j]);
 				
 				if(isLegal(mv))
 					out.add(mv);

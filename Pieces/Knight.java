@@ -21,9 +21,9 @@ public class Knight extends Piece
 		-ChessGame.SIZE - 2, 
 		-(2 * ChessGame.SIZE) - 1 };
 
-	public Knight(ChessGame game, boolean white) 
+	public Knight(Chessboard board, boolean white) 
 	{
-		super(game, white);
+		super(board, white);
 		
 		if(white)
 			sign = '♞';
@@ -35,10 +35,7 @@ public class Knight extends Piece
     @Override
     public Piece copy(Chessboard board)
     {
-        Piece out = new Knight(game,isWhite());
-        out.board = board;
-        out.sign = sign;
-        return out;
+        return new Knight(board, isWhite());
     }
         
 	@Override

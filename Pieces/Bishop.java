@@ -18,9 +18,9 @@ public class Bishop extends Piece
 		ChessGame.SIZE - 1, 	
 		-ChessGame.SIZE -1 };
 	
-	public Bishop(ChessGame game, boolean white) 
+	public Bishop(Chessboard board, boolean white) 
 	{
-		super(game, white);
+		super(board, white);
 		
 		if(white)
 			sign = '♝';
@@ -32,10 +32,7 @@ public class Bishop extends Piece
     @Override
     public Piece copy(Chessboard board)
     {
-        Piece out = new Bishop(game,isWhite());
-        out.board = board;
-        out.sign = sign;
-        return out;
+        return new Bishop(board,isWhite());
     }
 
 	@Override

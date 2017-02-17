@@ -6,16 +6,16 @@ public class Szachy
 {
 	public static void main(String args[])
 	{
-		//Here you can choose which kind of players you want to spawn. Currently supported: Random, Aggressive and Human. Work in Progress on min-max.
-		Player white = new AggressivePlayer("Alan");
+		//Here you can choose which kind of players you want to spawn. Currently supported: Random, Aggressive, MinMax and Human.
+		Player white = new MinMaxPlayer("Alan");
 		
 		//You can play by yourself ;)
 		//Player black = new HumanPlayer();
 		
 		//Or let a random be the prey.
-		Player black = new RandomPlayer("Random");
+		Player black = new AggressivePlayer("Martin");
 				
-		ChessGame game = new ChessGame(white, black); 
+		ChessGame game = ChessGame.init(white, black); 
 		game.play(70);
 	}
 	

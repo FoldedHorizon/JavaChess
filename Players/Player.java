@@ -4,7 +4,6 @@ import Utils.*;
 
 import java.util.*;
 
-import Pieces.Piece;
 import Utils.ChessGame;
 
 public abstract class Player {
@@ -23,11 +22,6 @@ public abstract class Player {
 	public String getName()
 	{
 		return new String(name);
-	}
-	
-	public void pieceCaptured(Piece piece)
-	{
-		System.out.println(piece + " captured!");
 	}
 	
 	public Move getMove() throws NoValidMove

@@ -16,9 +16,9 @@ public class Queen extends Piece
 		-ChessGame.SIZE + 1, 1, 1 + ChessGame.SIZE, ChessGame.SIZE,
 		ChessGame.SIZE - 1, -1, -ChessGame.SIZE - 1 };
 
-	public Queen(ChessGame game, boolean white)
+	public Queen(Chessboard board, boolean white)
 	{
-		super(game, white);
+		super(board, white);
 
 		if (white)
 			sign = '♛';
@@ -29,10 +29,7 @@ public class Queen extends Piece
 	@Override
 	public Piece copy(Chessboard board)
 	{
-		Piece out = new Queen(game, isWhite());
-		out.board = board;
-		out.sign = sign;
-		return out;
+		return new Queen(board, isWhite());
 	}
 
 	@Override

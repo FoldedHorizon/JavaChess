@@ -21,9 +21,9 @@ public class King extends Piece
 		-1,
 		-ChessGame.SIZE -1 };
 	
-	public King(ChessGame game, boolean white) 
+	public King(Chessboard board, boolean white) 
 	{
-		super(game, white);
+		super(board, white);
 		
 		if(white)
 			sign = '♚';
@@ -35,10 +35,7 @@ public class King extends Piece
     @Override
     public Piece copy(Chessboard board)
     {
-        Piece out = new King(game,isWhite());
-        out.board = board;
-        out.sign = sign;
-        return out;
+        return new King(board,isWhite());
     }
     
 	@Override
@@ -76,9 +73,8 @@ public class King extends Piece
 	}
 	
 	@Override
-	public void destroy() throws KingDied
+	public String destroy() throws KingDied
 	{
-		super.destroy();
 		throw new KingDied();
 	}
 	

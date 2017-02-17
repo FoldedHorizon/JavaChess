@@ -13,8 +13,8 @@ public class Pawn extends Piece
 
 	private final static int value = 1;
 
-	public Pawn(ChessGame game, boolean white) {
-		super(game, white);
+	public Pawn(Chessboard board, boolean white) {
+		super(board, white);
 		
 		if(white)
 			sign = '♟';
@@ -25,10 +25,7 @@ public class Pawn extends Piece
     @Override
     public Piece copy(Chessboard board)
     {
-        Piece out = new Pawn(game,isWhite());
-        out.board = board;
-        out.sign = sign;
-        return out;
+    	return new Pawn(board,isWhite());
     }
         
 	@Override

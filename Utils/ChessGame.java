@@ -129,7 +129,7 @@ public class ChessGame
 
 	private void execute(Move move) throws KingDied
 	{
-		chessboard.execute(move);
+		System.out.println(chessboard.execute(move));
 	}
 	
 	public static ChessGame getInstance()
@@ -137,18 +137,26 @@ public class ChessGame
 		return instance;
 	}
 
-	public ChessGame(Player whitePlayer, Player blackPlayer)
+	private ChessGame(Player whitePlayer, Player blackPlayer)
 	{
-		chessboard = new Chessboard(this);
 		white = whitePlayer;
 		black = blackPlayer;
-		white.init(this);
-		black.init(this);
-		
-		instance = this;
 
 	}
 
+	public static ChessGame init(Player whitePlayer, Player blackPlayer)
+	{
+		ChessGame out = new ChessGame(whitePlayer, blackPlayer);
+		out.chessboard = new Chessboard();
+		out.chessboard.init();
+		
+		out.white.init(out);
+		out.black.init(out);
+		
+		instance = out;
+		
+		return out;
+	}
 	// ---------------------------------------------------------------------
 
 }
